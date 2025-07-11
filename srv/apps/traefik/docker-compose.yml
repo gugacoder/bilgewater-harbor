@@ -19,9 +19,7 @@ services:
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$XeyCb78oDrVuOaB7Z1VDdOWhjVw8vnAmOhJAKV2tsCzHlcB.XSg3q"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$RTGeTZB/Cvs02d1TkdixAe3Pwc51jb4VZ2tGLANzQAuKqezYh8U8q"
+      - "traefik.http.routers.traefik.middlewares=authelia@docker"
     networks:
       - codr-net
 

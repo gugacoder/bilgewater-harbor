@@ -1,0 +1,23 @@
+---
+###############################################################
+#                         Users Database                      #
+###############################################################
+
+users:
+  admin:
+    displayname: "Administrator"
+    password: "$argon2id$v=19$m=65536,t=3,p=4$BpLnfgDsc2WD8F2q$o/vzA4myCqZZ36bUGsDY//8mKUYNZZaR0t4MFFSs+iM"  # Password: admin123
+    email: guga.coder@gmail.com
+    groups:
+      - admins
+      - users
+
+  user:
+    displayname: "Regular User"
+    password: "$argon2id$v=19$m=65536,t=3,p=4$BpLnfgDsc2WD8F2q$o/vzA4myCqZZ36bUGsDY//8mKUYNZZaR0t4MFFSs+iM"  # Password: user123
+    email: user@codrstudio.dev
+    groups:
+      - users
+
+# Para gerar novas senhas, use o comando:
+# docker run --rm authelia/authelia:latest authelia hash-password 'your_password'

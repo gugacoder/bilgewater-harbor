@@ -1,0 +1,27 @@
+---
+###############################################################
+#                    Notification Configuration               #
+###############################################################
+
+# Para desenvolvimento, usando filesystem
+# Em produção, configure SMTP para emails reais
+
+# Configuração SMTP (descomentada quando necessário)
+# smtp:
+#   username: guga.coder@gmail.com
+#   password: your_app_password
+#   host: smtp.gmail.com
+#   port: 587
+#   sender: guga.coder@gmail.com
+#   identifier: localhost
+#   subject: "[CodrStudio] {title}"
+#   startup_check_address: guga.coder@gmail.com
+#   disable_require_tls: false
+#   disable_html_emails: false
+#   tls:
+#     skip_verify: false
+#     minimum_version: TLS1.2
+
+# Configuração atual - filesystem (desenvolvimento)
+filesystem:
+  filename: /config/data/notification.txt
