@@ -1,6 +1,9 @@
 services:
   code-server:
-    image: codercom/code-server:latest
+    image: ghcr.io/coder/code-server:latest
+    hostname: code-server
+    container_name: code-server
+    restart: unless-stopped
     volumes:
       - ./data:/home/coder/project
     env_file:
@@ -10,9 +13,11 @@ services:
       - "traefik.http.routers.code-server.rule=Host(`code.codrstudio.dev`)"
       - "traefik.http.routers.code-server.entrypoints=websecure"
       - "traefik.http.routers.code-server.tls.certresolver=letsencrypt"
-      - "traefik.http.services.code-server.loadbalancer.server.port=8443"
+      - "traefik.http.services.code-server.loadbalancer.server.port=8080"
+    networks:
+      - codr-net
+
 networks:
-  default:
-    name: codr-net
+  codr-net:
     external: true
 

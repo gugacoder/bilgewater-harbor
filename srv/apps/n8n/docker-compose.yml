@@ -2,7 +2,7 @@ services:
   n8n:
     image: n8nio/n8n
     container_name: n8n
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./data:/home/node/.n8n
     env_file:

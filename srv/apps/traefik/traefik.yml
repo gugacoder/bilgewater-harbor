@@ -10,6 +10,9 @@ entryPoints:
   websecure:
     address: ":443"
 
+  ssh:
+    address: ":2222"
+
 api:
   dashboard: true
 

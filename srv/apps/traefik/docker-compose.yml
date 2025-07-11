@@ -3,9 +3,12 @@ services:
     image: traefik:latest
     container_name: traefik
     restart: always
+    command:
+      - "--configFile=/traefik.yml"
     ports:
       - "80:80"
       - "443:443"
+      - "2222:2222"  # expõe o entrypoint TCP para SSH
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yml:/traefik.yml:ro
@@ -25,3 +28,4 @@ services:
 networks:
   codr-net:
     external: true
+
