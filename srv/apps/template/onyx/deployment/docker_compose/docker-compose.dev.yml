@@ -1,0 +1,23 @@
+(...)
+  nginx:
+    image: nginx:1.23.4-alpine
+    restart: unless-stopped
+    # nginx will immediately crash with `nginx: [emerg] host not found in upstream`
+    # if api_server / web_server are not up
+    depends_on:
+      - api_server
+      - web_server
+    environment:
+      - DOMAIN=localhost
+    volumes:
+      - ../data/nginx:/etc/nginx/conf.d
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.onyx.rule=Host(`chat.codrstudio.dev`)"
+      - "traefik.http.routers.onyx.entrypoints=websecure"
+      - "traefik.http.routers.onyx.tls.certresolver=letsencrypt"
+      - "traefik.http.services.onyx.loadbalancer.server.port=80"
+(...)
+  default:
+    name: codr-net
+    external: true

@@ -1,0 +1,27 @@
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/traefik.yml:ro
+      - ./acme.json:/acme.json
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`panel.codrstudio.dev`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$XeyCb78oDrVuOaB7Z1VDdOWhjVw8vnAmOhJAKV2tsCzHlcB.XSg3q"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$RTGeTZB/Cvs02d1TkdixAe3Pwc51jb4VZ2tGLANzQAuKqezYh8U8q"
+    networks:
+      - codr-net
+
+networks:
+  codr-net:
+    external: true

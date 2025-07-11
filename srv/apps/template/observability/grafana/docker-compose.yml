@@ -1,0 +1,16 @@
+services:
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - ./data:/var/lib/grafana
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`log.codrstudio.dev`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls.certresolver=letsencrypt"
+networks:
+  default:
+    name: codr-net
+    external: true

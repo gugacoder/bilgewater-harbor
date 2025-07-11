@@ -1,0 +1,18 @@
+services:
+  dockge:
+    image: louislam/dockge:latest
+    container_name: dockge
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../:/opt/docker-compose-projects
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dockge.rule=Host(`docker.codrstudio.dev`)"
+      - "traefik.http.routers.dockge.entrypoints=websecure"
+      - "traefik.http.routers.dockge.tls.certresolver=letsencrypt"
+networks:
+  default:
+    name: codr-net
+    external: true

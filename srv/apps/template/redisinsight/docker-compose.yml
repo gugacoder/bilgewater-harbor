@@ -1,0 +1,17 @@
+services:
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    volumes:
+      - ./data:/db
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.redisinsight.rule=Host(`redis.codrstudio.dev`)"
+      - "traefik.http.routers.redisinsight.entrypoints=websecure"
+      - "traefik.http.routers.redisinsight.tls.certresolver=letsencrypt"
+      - "traefik.http.services.redisinsight.loadbalancer.server.port=8001"
+networks:
+  default:
+    name: codr-net
+    external: true
