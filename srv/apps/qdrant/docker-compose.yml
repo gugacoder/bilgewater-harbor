@@ -12,8 +12,8 @@ services:
       - "traefik.http.routers.qdrant.entrypoints=websecure"
       - "traefik.http.routers.qdrant.tls.certresolver=letsencrypt"
       - "traefik.http.services.qdrant.loadbalancer.server.port=6333"
-      - "traefik.http.middlewares.qdrant-auth.basicauth.users=admin:$$apr1$$cd4vy1rq$$vFyV3ieoZe/hz1u1kij1f1"
-      - "traefik.http.routers.qdrant.middlewares=qdrant-auth"
+      - "traefik.http.routers.qdrant.middlewares=basic-auth"
+      - 'traefik.http.middlewares.basic-auth.basicauth.users=gugacoder:$$apr1$$VWu0Ae8l$$AKzuFNbXVn4pcXbsJLJJa/'
     networks:
       - codr-net
 

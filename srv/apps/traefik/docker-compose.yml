@@ -8,18 +8,20 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "2222:2222"  # expõe o entrypoint TCP para SSH
+      - "2222:2222"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yml:/traefik.yml:ro
       - ./acme.json:/acme.json
+      - ./dynamic:/etc/traefik/dynamic
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`panel.codrstudio.dev`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.middlewares=authelia@docker"
+      - "traefik.http.routers.traefik.middlewares=basic-auth"
+      - "traefik.http.middlewares.basic-auth.basicauth.users=gugacoder:$$apr1$$VWu0Ae8l$$AKzuFNbXVn4pcXbsJLJJa/"
     networks:
       - codr-net
 
