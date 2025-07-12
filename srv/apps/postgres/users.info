@@ -1,0 +1,22 @@
+# PostgreSQL Users Info
+
+## Usuário: dev
+- **Username:** dev
+- **Password:** PgSQL2dev
+- **Database:** codrstudio
+- **Host:** sql.codrstudio.dev
+- **Port:** 5432
+- **Permissions:** Owner (full DDL/DML access)
+
+### Connection String:
+```
+postgresql://dev:PgSQL2dev@sql.codrstudio.dev:5432/codrstudio
+```
+
+### Direct Connection:
+```bash
+docker compose exec postgres psql -U dev -d codrstudio
+```
+
+---
+*Created: 2025-07-12*

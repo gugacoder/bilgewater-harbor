@@ -1,0 +1,18 @@
+services:
+  pgweb:
+    image: sosedoff/pgweb
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pgweb.rule=Host(`pgsql.codrstudio.dev`)"
+      - "traefik.http.routers.pgweb.entrypoints=websecure"
+      - "traefik.http.routers.pgweb.tls.certresolver=letsencrypt"
+      - "traefik.http.services.pgweb.loadbalancer.server.port=8081"
+    networks:
+      - codr-net
+
+networks:
+  codr-net:
+    external: true
+
