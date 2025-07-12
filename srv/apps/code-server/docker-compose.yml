@@ -5,7 +5,7 @@ services:
     container_name: code-server
     restart: unless-stopped
     volumes:
-      - ./data:/home/coder/project
+      - ./data:/home/coder
     env_file:
       - .env
     labels:
