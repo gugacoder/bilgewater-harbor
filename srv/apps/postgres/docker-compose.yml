@@ -14,6 +14,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.postgres.rule=Host(`sql.codrstudio.dev`)"
+      - "traefik.http.routers.postgres.entrypoints=websecure"
+      - "traefik.http.routers.postgres.tls.certresolver=letsencrypt"
+      - "traefik.http.services.postgres.loadbalancer.server.port=5432"
     networks:
       - codr-net
 
