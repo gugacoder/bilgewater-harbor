@@ -1,0 +1,20 @@
+services:
+  droppy:
+    image: silverwind/droppy
+    container_name: droppy
+    restart: unless-stopped
+    volumes:
+      - ./data:/files
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.droppy.rule=Host(`files.codrstudio.dev`)"
+      - "traefik.http.routers.droppy.entrypoints=websecure"
+      - "traefik.http.routers.droppy.tls.certresolver=letsencrypt"
+      - "traefik.http.services.droppy.loadbalancer.server.port=8989"
+    networks:
+      - codr-net
+
+networks:
+  codr-net:
+    external: true
+

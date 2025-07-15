@@ -10,14 +10,20 @@ services:
       - .env
     labels:
       - "traefik.enable=true"
+      # Roteador e serviço para code-server (porta 8080)
       - "traefik.http.routers.code-server.rule=Host(`code.codrstudio.dev`)"
       - "traefik.http.routers.code-server.entrypoints=websecure"
       - "traefik.http.routers.code-server.tls.certresolver=letsencrypt"
-      - "traefik.http.services.code-server.loadbalancer.server.port=8080"
+      - "traefik.http.routers.code-server.service=code-server-service"
+      - "traefik.http.services.code-server-service.loadbalancer.server.port=8080"
+      # Roteador e serviço para demo (porta 3000)
+      - "traefik.http.routers.demo.rule=Host(`demo.codrstudio.dev`)"
+      - "traefik.http.routers.demo.entrypoints=websecure"
+      - "traefik.http.routers.demo.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.demo.service=demo-service"
+      - "traefik.http.services.demo-service.loadbalancer.server.port=3000"
     networks:
       - codr-net
-
 networks:
   codr-net:
     external: true
-
