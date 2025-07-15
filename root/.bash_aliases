@@ -12,6 +12,7 @@ alias s="apt-cache search"
 alias unstage="git restore --staged"
 alias ci="git commit"
 alias st="git status"
+alias status="git status"
 alias add="git add -f"
 alias push="git push"
 alias pull="git pull"
@@ -22,3 +23,5 @@ alias restore-all="git restore ."
 
 alias up="docker compose up -d"
 alias down="docker compose down"
+
+alias sync="git pull && git push"
