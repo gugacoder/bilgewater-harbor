@@ -5,6 +5,7 @@ USER root
 # Instalar dependências
 RUN apt-get update && \
     apt-get install -y npm && \
+    apt-get install -y vim && \
     npm install -g @anthropic-ai/claude-code && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*

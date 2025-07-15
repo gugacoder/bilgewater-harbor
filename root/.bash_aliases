@@ -1,5 +1,7 @@
 alias ll="ls -lha"
 alias ?="grep"
+
+alias apt="sudo apt"
 alias install="apt install"
 alias i="apt install"
 alias remove="apt remove"
