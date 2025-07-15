@@ -19,18 +19,21 @@ services:
       # Roteador para porta 3000
       - "traefik.http.routers.code-server-3000.rule=Host(`code.codrstudio.dev`)"
       - "traefik.http.routers.code-server-3000.entrypoints=websecure3k"
+      - "traefik.http.routers.code-server-3000.tls.certresolver=letsencrypt"
       - "traefik.http.routers.code-server-3000.service=code-server-service-3000"
       - "traefik.http.services.code-server-service-3000.loadbalancer.server.port=3000"
       # Roteador para porta 5000
       - "traefik.http.routers.code-server-5000.rule=Host(`code.codrstudio.dev`)"
       - "traefik.http.routers.code-server-5000.entrypoints=websecure5k"
+      - "traefik.http.routers.code-server-5000.tls.certresolver=letsencrypt"
       - "traefik.http.routers.code-server-5000.service=code-server-service-5000"
       - "traefik.http.services.code-server-service-5000.loadbalancer.server.port=5000"
       # Roteador para porta 8000
       - "traefik.http.routers.code-server-8000.rule=Host(`code.codrstudio.dev`)"
       - "traefik.http.routers.code-server-8000.entrypoints=websecure8k"
+      - "traefik.http.routers.code-server-8000.tls.certresolver=letsencrypt"
       - "traefik.http.routers.code-server-8000.service=code-server-service-8000"
-      - "traefik.http.services.code-server-service-8000.loadbalancer.server.port=8000"
+      - "traefik.http.services.code-server-service-8000.loadbalancer.server.port=8000" 
     networks:
       - codr-net
 networks:
