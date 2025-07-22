@@ -1,0 +1,22 @@
+services:
+  n8n_worktip:
+    build: .
+    container_name: n8n_worktip
+    restart: unless-stopped
+    volumes:
+      - ./data:/home/node/.n8n_worktip
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n_worktip.rule=Host(`n8n.worktip.com.br`)"
+      - "traefik.http.routers.n8n_worktip.entrypoints=websecure"
+      - "traefik.http.routers.n8n_worktip.tls.certresolver=letsencrypt"
+      - "traefik.http.services.n8n_worktip.loadbalancer.server.port=5678"
+    networks:
+      - codr-net
+
+networks:
+  codr-net:
+    external: true
+

@@ -25,5 +25,9 @@ alias restore-all="git restore ."
 
 alias up="docker compose up -d"
 alias down="docker compose down"
+alias build="docker compose build --no-cache"
 
 alias sync="git pull && git push"
+
+alias commit="claude -p \"Commite o que está no estágio com mensagem apropriada e convenção da comunidade\" --allowedTools \"Bash(git:*)\""
+

@@ -1,0 +1,17 @@
+services:
+  mcp:
+    build: .
+    container_name: nic
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nic.rule=Host(`nic.codrstudio.dev`)"
+      - "traefik.http.routers.nic.entrypoints=websecure"
+      - "traefik.http.routers.nic.tls.certresolver=letsencrypt"
+      - "traefik.http.services.nic.loadbalancer.server.port=8000"
+    networks:
+      - codr-net
+
+networks:
+  codr-net:
+    external: true

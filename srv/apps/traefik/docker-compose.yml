@@ -25,10 +25,18 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.middlewares=basic-auth"
       - "traefik.http.middlewares.basic-auth.basicauth.users=gugacoder:$$apr1$$VWu0Ae8l$$AKzuFNbXVn4pcXbsJLJJa/"
+      
+      # Middleware CORS completo
+      - "traefik.http.middlewares.dev-cors.headers.accesscontrolalloworiginlist=https://code.codrstudio.dev"
+      - "traefik.http.middlewares.dev-cors.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE,OPTIONS,PATCH"
+      - "traefik.http.middlewares.dev-cors.headers.accesscontrolallowheaders=Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With"
+      - "traefik.http.middlewares.dev-cors.headers.accesscontrolexposeheaders=Authorization"
+      - "traefik.http.middlewares.dev-cors.headers.accesscontrolallowcredentials=true"
+      - "traefik.http.middlewares.dev-cors.headers.accesscontrolmaxage=86400"
+      - "traefik.http.middlewares.dev-cors.headers.addvaryheader=true"
+      
     networks:
       - codr-net
-
 networks:
   codr-net:
     external: true
-
