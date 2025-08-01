@@ -1,0 +1,23 @@
+services:
+  mage:
+    image: mageai/mageai:latest
+    container_name: mage
+    restart: unless-stopped
+    command: mage start mage_data
+    volumes:
+      - ./data:/home/src
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mage.rule=Host(`mage.codrstudio.dev`)"
+      - "traefik.http.routers.mage.entrypoints=websecure"
+      - "traefik.http.routers.mage.tls.certresolver=letsencrypt"
+      - "traefik.http.services.mage.loadbalancer.server.port=6789"
+    networks:
+      - codr-net
+
+networks:
+  codr-net:
+    external: true
+

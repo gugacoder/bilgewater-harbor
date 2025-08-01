@@ -6,22 +6,25 @@ entryPoints:
         entryPoint:
           to: websecure
           scheme: https
- 
+
   websecure:
     address: ":443"
- 
+
   ssh:
     address: ":2222"
- 
+
   websecure3k:
     address: ":3000"
- 
+
   websecure5k:
     address: ":5000"
- 
+
   websecure8k:
     address: ":8000"
- 
+
+  grpcs:
+    address: ":6334"
+
 api:
   dashboard: true
 
@@ -32,12 +35,13 @@ providers:
   file:
     directory: /etc/traefik/dynamic
     watch: true
- 
+
 certificatesResolvers:
   letsencrypt:
     acme:
       email: guga.coder@gmail.com
       storage: /acme.json
       tlsChallenge: {}
- 
+
 accessLog: {}
+

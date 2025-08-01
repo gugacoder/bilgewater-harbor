@@ -1,0 +1,22 @@
+services:
+  chat:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: chat
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/backend/data
+      - ./favicon.ico:/app/static/favicon.ico  # Adiciona o favicon customizado
+    environment:
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+      - ENABLE_OPENAI_API=${ENABLE_OPENAI_API}
+      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DEFAULT_MODELS=${DEFAULT_MODELS}
+      - DEFAULT_LOCALE=${DEFAULT_LOCALE}
+      - STATIC_DIR=${STATIC_DIR}
+    networks:
+      - codr-net
+
+networks:
+  codr-net:
+    external: true

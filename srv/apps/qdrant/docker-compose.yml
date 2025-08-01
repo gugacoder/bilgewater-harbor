@@ -7,17 +7,29 @@ services:
       - "6333:6333"
     volumes:
       - ./data:/qdrant/storage
+      - ./config.yaml:/qdrant/config/config.yaml
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.qdrant.rule=Host(`qdrant.codrstudio.dev`)"
-      - "traefik.http.routers.qdrant.entrypoints=websecure"
-      - "traefik.http.routers.qdrant.tls.certresolver=letsencrypt"
-      - "traefik.http.services.qdrant.loadbalancer.server.port=6333"
-      - "traefik.http.routers.qdrant.middlewares=basic-auth"
-      - 'traefik.http.middlewares.basic-auth.basicauth.users=gugacoder:$$apr1$$VWu0Ae8l$$AKzuFNbXVn4pcXbsJLJJa/'
+
+      # HTTP router (REST + UI)
+      - "traefik.http.routers.qdrant-http.rule=Host(`qdrant.codrstudio.dev`)"
+      - "traefik.http.routers.qdrant-http.entrypoints=websecure"
+      - "traefik.http.routers.qdrant-http.tls.certresolver=letsencrypt"
+      - "traefik.http.services.qdrant-http.loadbalancer.server.port=6333"
+
+      # gRPC router (grpcs://qdrant.codrstudio.dev)
+      - "traefik.http.routers.qdrant-grpc.rule=Host(`qdrant.codrstudio.dev`)"
+      - "traefik.http.routers.qdrant-grpc.entrypoints=grpcs"
+      - "traefik.http.routers.qdrant-grpc.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.qdrant-grpc.service=qdrant-grpc"
+      - "traefik.http.routers.qdrant-grpc.protocol=h2"
+      - "traefik.http.services.qdrant-grpc.loadbalancer.server.port=6334"
+      - "traefik.http.services.qdrant-grpc.loadbalancer.server.scheme=http"
+
     networks:
       - codr-net
 
 networks:
   codr-net:
     external: true
+

@@ -1,28 +1,23 @@
 services:
-  chat:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: chat
+  chatbot:
+    container_name: chatbot
+    build: .
     restart: unless-stopped
-    volumes:
-      - ./data:/app/backend/data
-      - ./favicon.ico:/app/static/favicon.ico  # Adiciona o favicon customizado
-    environment:
-      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
-      - ENABLE_OPENAI_API=${ENABLE_OPENAI_API}
-      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - DEFAULT_MODELS=${DEFAULT_MODELS}
-      - DEFAULT_LOCALE=${DEFAULT_LOCALE}
-      - STATIC_DIR=${STATIC_DIR}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.chat.rule=Host(`chat.codrstudio.dev`)"
-      - "traefik.http.routers.chat.entrypoints=websecure"
-      - "traefik.http.routers.chat.tls.certresolver=letsencrypt"
-      - "traefik.http.services.chat.loadbalancer.server.port=8080"
+    env_file:
+      - .env
+      - .env.development
+    working_dir: /app
+    command: ["npm", "run", "start"]
     networks:
       - codr-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chatbot.rule=Host(`chat.codrstudio.dev`)"
+      - "traefik.http.routers.chatbot.entrypoints=websecure"
+      - "traefik.http.routers.chatbot.tls.certresolver=letsencrypt"
+      - "traefik.http.services.chatbot.loadbalancer.server.port=3000"
 
 networks:
   codr-net:
     external: true
+
